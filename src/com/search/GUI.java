@@ -10,11 +10,13 @@ import java.util.ArrayList;
  */
 public class GUI extends JPanel {
     ArrayList<ArrayList<Character>> state;
+    ArrayList<Position> winningStreak;
     private int margin = 10;
     private int cellWidth = 25;
 
-    public GUI(ArrayList<ArrayList<Character>> state) {
+    public GUI(ArrayList<ArrayList<Character>> state, ArrayList<Position> winningStreak) {
         this.state = state;
+        this.winningStreak = winningStreak;
     }
 
     public ArrayList<ArrayList<Character>> getState() {
@@ -34,6 +36,11 @@ public class GUI extends JPanel {
                 g.setColor(Color.BLACK);
                 g.drawRect(margin + j*cellWidth, margin + i*cellWidth, cellWidth, cellWidth);
             }
+        }
+        for (int k = 0; k<winningStreak.size(); k++) {
+            Position pos = winningStreak.get(k);
+            g.setColor(Color.BLACK);
+            g.drawString("X",15 + (pos.getY())*cellWidth, 5 + (pos.getX()+1)*cellWidth);
         }
     }
 
@@ -65,12 +72,12 @@ public class GUI extends JPanel {
         }
     }
 
-    public static void createAndShowGUI(ArrayList<ArrayList<Character>> state) {
+    public static void createAndShowGUI(ArrayList<ArrayList<Character>> state, ArrayList<Position> winningStreak) {
         JFrame frame = new JFrame("A* Search");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Create and set up the content pane.
-        GUI newContentPane = new GUI(state);
+        GUI newContentPane = new GUI(state, winningStreak);
         newContentPane.setOpaque(true); //content panes must be opaque
         frame.setContentPane(newContentPane);
 

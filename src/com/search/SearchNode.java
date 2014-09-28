@@ -1,6 +1,5 @@
 package com.search;
 
-import java.awt.geom.Area;
 import java.util.ArrayList;
 
 /**

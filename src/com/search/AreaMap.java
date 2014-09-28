@@ -42,10 +42,6 @@ public class AreaMap extends State{
         return state;
     }
 
-    public void setState(ArrayList<ArrayList<Character>> state) {
-        this.state = state;
-    }
-
     public AreaMap (AreaMap areaMap) {
         this(areaMap.getState(), areaMap.getHeight(), areaMap.getWidth(), areaMap.getCurrentPosition(), areaMap.getGoal(), areaMap.getStart());
     }
@@ -83,9 +79,8 @@ public class AreaMap extends State{
     }
 
     public boolean isPositionWithinBounds(Position position) {
-        boolean vari = (position.getX() >= 0 && position.getX() < this.height
+        return (position.getX() >= 0 && position.getX() < this.height
                 && position.getY() >= 0 && position.getY() < this.width);
-        return vari;
     }
 
     public boolean isValidPosition(Position position) {
@@ -95,33 +90,19 @@ public class AreaMap extends State{
     public Position findGoalPosition() {
         for (int i = 0; i<state.size(); i++) {
             for (int j = 0; j<state.get(i).size(); j++) {
-                if (state.get(i).get(j) == 'B') return new Position(i,j);
+                if (state.get(i).get(j) == GOAL) return new Position(i,j);
             }
         }
-        /*Iterator iterator = state.entrySet().iterator();
-        while(iterator.hasNext()) {
-            Map.Entry pairs = (Map.Entry)iterator.next();
-            if ((Character)pairs.getValue() == 'B') return (Position) pairs.getKey();
-            //iterator.remove();
-        }*/
         return null;
-        //throw new Exception("Unable to find goal position");
     }
 
     public Position findStartPosition() {
         for (int i = 0; i<state.size(); i++) {
             for (int j = 0; j<state.get(i).size(); j++) {
-                if (state.get(i).get(j) == 'A') return new Position(i,j);
+                if (state.get(i).get(j) == START_NODE) return new Position(i,j);
             }
         }
-       /* Iterator iterator = state.entrySet().iterator();
-        while(iterator.hasNext()) {
-            Map.Entry pairs = (Map.Entry)iterator.next();
-            if ((Character)pairs.getValue() == 'A') return (Position) pairs.getKey();
-            //iterator.remove();
-        }*/
         return null;
-        //throw new Exception("Unable to find start position");
     }
 
     public void move(Position position) {
