@@ -109,6 +109,25 @@ public class AreaMap extends State{
         setCurrentPosition(position);
     }
 
+    public float getGCost() {
+        Position current = getCurrentPosition();
+        char mapCell = getState().get(current.getX()).get(current.getY());
+        switch (mapCell) {
+            case 'w':
+                return 100;
+            case 'm':
+                return 50;
+            case 'f':
+                return 10;
+            case 'g':
+                return 5;
+            case 'r':
+                return 1;
+            default:
+                return 1;
+        }
+    }
+
     @Override
     public String toString() {
         String result = "";

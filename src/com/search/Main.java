@@ -34,16 +34,16 @@ public class Main {
 
     public static void AttachAndEval(SearchNode successor, SearchNode parent) {
         successor.setParent(parent);
-        successor.setG(parent.getG() + 1);
+        successor.setG(parent.getG() + successor.getState().getGCost());
         successor.setH(successor.CalculateHeuristic());
         successor.setF(successor.getG() + successor.getH());
     }
 
     public static void PropagatePathImprovements(SearchNode successor) {
         for (SearchNode kid : successor.getKids()) {
-            if (successor.getG() + 1 < kid.getG()) {
+            if (successor.getG() + successor.getState().getGCost() < kid.getG()) {
                 kid.setParent(successor);
-                kid.setG(successor.getG() + 1);
+                kid.setG(successor.getG() + successor.getState().getGCost());
                 kid.setF(kid.getG() + kid.getH());
                 PropagatePathImprovements(kid);
             }
@@ -66,7 +66,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         Problem problem = new Problem();
-        String filePath = "C:\\Users\\Sondre\\Downloads\\boards\\boards\\board-1-3.txt";
+        String filePath = "C:\\Users\\Sondre\\Downloads\\boards\\boards\\board-2-4.txt";
         AreaMap map = readFromFileIntoMap(filePath);
 
         map.setCurrentPosition(map.getStart());
@@ -108,13 +108,13 @@ public class Main {
                         }
                     }
                 }
-                currentSearchNode.getKids().add(successor);
+                currentSearchNode.getKids().add(successor); //TODO feil?
                 if (successor.getStatus() != Status.OPEN && successor.getStatus() != Status.CLOSED) {
                     AttachAndEval(successor, currentSearchNode);
                     successor.open();
                     open.add(successor);
                     Collections.sort(open);
-                } else if (currentSearchNode.getG() + 1 < successor.getG()) {
+                } else if (currentSearchNode.getG() + successor.getState().getGCost() < successor.getG()) {
                     AttachAndEval(successor, currentSearchNode);
                     if (successor.getStatus() == Status.CLOSED) {
                         PropagatePathImprovements(successor);
