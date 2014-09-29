@@ -1,4 +1,4 @@
-package com.search;
+package com.search.problem;
 
 /**
  * Created by Sondre on 23.09.2014.

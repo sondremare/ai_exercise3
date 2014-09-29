@@ -1,12 +1,17 @@
 package com.search;
 
+import com.search.problem.Action;
+import com.search.problem.GridMap;
+import com.search.problem.Position;
+import com.search.problem.Status;
+
 import java.util.ArrayList;
 
 /**
  * Created by Sondre on 23.09.2014.
  */
 public class SearchNode implements Comparable<SearchNode>{
-    AreaMap state;
+    GridMap state;
     private float g;
     private float h;
     private float f;
@@ -14,32 +19,32 @@ public class SearchNode implements Comparable<SearchNode>{
     private SearchNode parent;
     private ArrayList<SearchNode> kids = new ArrayList<SearchNode>();
 
-    public SearchNode(AreaMap state) {
+    public SearchNode(GridMap state) {
         this.state = state;
         this.g = 0;
         this.h = CalculateHeuristic();
         this.f = this.g + this.h;
     }
 
-    public SearchNode(AreaMap state, float g) {
+    public SearchNode(GridMap state, float g) {
         this.state = state;
         this.g = g;
         this.h = CalculateHeuristic();
         this.f = this.g + this.h;
     }
 
-    public AreaMap getState() {
+    public GridMap getState() {
         return state;
     }
 
-    public void setState(AreaMap state) {
+    public void setState(GridMap state) {
         this.state = state;
     }
 
     /** Calculates heuristic based on Manhattan distance */
     public float CalculateHeuristic () {
         Position current = state.getCurrentPosition();
-        Position goal = state.getGoal();
+        Position goal = state.getGoalPosition();
         return (Math.abs(current.getX() - goal.getX()) + Math.abs(current.getY() - goal.getY()));
     }
 

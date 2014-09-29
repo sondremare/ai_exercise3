@@ -1,26 +1,25 @@
-package com.search;
+package com.search.problem;
+
+import com.search.State;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * Created by Sondre on 27.09.2014.
  */
-public class AreaMap extends State{
+public class GridMap extends State {
 
-    ArrayList<ArrayList<Character>> state;
-    int height;
-    int width;
-    Position goal;
-    Position start;
-    Position current;
-    char BLOCKED = '#';
-    char GOAL = 'B';
-    char START_NODE = 'A';
+    private ArrayList<ArrayList<Character>> state;
+    private int height;
+    private int width;
+    private Position goal;
+    private Position start;
+    private Position current;
+    private char BLOCKED = '#';
+    private char GOAL = 'B';
+    private char START_NODE = 'A';
 
-    public AreaMap(ArrayList<ArrayList<Character>> state, int height, int width) {
+    public GridMap(ArrayList<ArrayList<Character>> state, int height, int width) {
         this.state = state;
         this.height = height;
         this.width = width;
@@ -29,7 +28,7 @@ public class AreaMap extends State{
         this.current = this.start;
     }
 
-    public AreaMap(ArrayList<ArrayList<Character>> state, int height, int width, Position current, Position goal, Position start) {
+    public GridMap(ArrayList<ArrayList<Character>> state, int height, int width, Position current, Position goal, Position start) {
         this.state = state;
         this.height = height;
         this.width = width;
@@ -42,8 +41,8 @@ public class AreaMap extends State{
         return state;
     }
 
-    public AreaMap (AreaMap areaMap) {
-        this(areaMap.getState(), areaMap.getHeight(), areaMap.getWidth(), areaMap.getCurrentPosition(), areaMap.getGoal(), areaMap.getStart());
+    public GridMap(GridMap gridMap) {
+        this(gridMap.getState(), gridMap.getHeight(), gridMap.getWidth(), gridMap.getCurrentPosition(), gridMap.getGoalPosition(), gridMap.getStart());
     }
 
     public Position getCurrentPosition() {
@@ -58,15 +57,11 @@ public class AreaMap extends State{
         return width;
     }
 
-    public Position getCurrent() {
-        return current;
-    }
-
     public void setCurrentPosition(Position position) {
         this.current = position;
     }
 
-    public Position getGoal() {
+    public Position getGoalPosition() {
         return goal;
     }
 
