@@ -1,6 +1,8 @@
 package com.search;
 
+import com.search.algorithm.AStarSearch;
 import com.search.algorithm.BreadthFirstSearch;
+import com.search.algorithm.DijkstraSearch;
 import com.search.problem.GridMap;
 import com.search.problem.Problem;
 
@@ -37,12 +39,14 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        String filePath = "C:\\Users\\Sondre\\Downloads\\boards\\boards\\board-1-1.txt";
+        String filePath = "C:\\Users\\Sondre\\Downloads\\boards\\boards\\board-2-4.txt";
         GridMap map = readFromFileIntoMap(filePath);
         Problem problem = new Problem(map);
         boolean shouldDrawOpenAndClosedNodes = true;
-        BreadthFirstSearch aStarSearch = new BreadthFirstSearch(problem, shouldDrawOpenAndClosedNodes);
-        aStarSearch.search();
+        AStarSearch search = new AStarSearch(problem, shouldDrawOpenAndClosedNodes);
+        //BreadthFirstSearch search = new BreadthFirstSearch(problem, shouldDrawOpenAndClosedNodes);
+        //DijkstraSearch search = new DijkstraSearch(problem, shouldDrawOpenAndClosedNodes);
+        search.search();
 
     }
 }

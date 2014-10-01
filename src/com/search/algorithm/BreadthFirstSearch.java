@@ -33,9 +33,9 @@ public class BreadthFirstSearch {
 
     public void PropagatePathImprovements(SearchNode successor) {
         for (SearchNode kid : successor.getKids()) {
-            if (successor.getG() + successor.getState().getGCost() < kid.getG()) {
+            if (successor.getG() + kid.getState().getGCost() < kid.getG()) {
                 kid.setParent(successor);
-                kid.setG(successor.getG() + successor.getState().getGCost());
+                kid.setG(successor.getG() + kid.getState().getGCost());
                 kid.setF(kid.getG() + kid.getH());
                 PropagatePathImprovements(kid);
             }
@@ -73,9 +73,7 @@ public class BreadthFirstSearch {
         open.add(initialSearchNode);
         uniqueStates.put(map.getCurrentPosition().getX()*100+map.getCurrentPosition().getY(), map.getState());
 
-        int counter = 0;
         while (!open.isEmpty()) {
-            System.out.println("Counter: "+counter);
             SearchNode currentSearchNode = popNode(open);
             open.remove(currentSearchNode);
             currentSearchNode.close();
@@ -120,7 +118,6 @@ public class BreadthFirstSearch {
                     }
                 }
             }
-            counter++;
         }
     }
 }

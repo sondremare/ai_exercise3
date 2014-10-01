@@ -18,7 +18,7 @@ public class AStarSearch extends BreadthFirstSearch{
 
     @Override
     public SearchNode popNode(ArrayList<SearchNode> nodes) {
-        Comparator<SearchNode> highestFAndLowestHValue = new Comparator<SearchNode>() {
+        Comparator<SearchNode> lowestFAndHValues = new Comparator<SearchNode>() {
 
             @Override
             public int compare(SearchNode sn1, SearchNode sn2) {
@@ -32,7 +32,7 @@ public class AStarSearch extends BreadthFirstSearch{
             }
         };
 
-        Collections.sort(nodes, highestFAndLowestHValue);
+        Collections.sort(nodes, lowestFAndHValues);
         return nodes.get(0);
     }
 }

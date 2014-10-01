@@ -18,7 +18,7 @@ public class DijkstraSearch extends BreadthFirstSearch{
 
     @Override
     public SearchNode popNode(ArrayList<SearchNode> nodes) {
-        Comparator<SearchNode> hightestGValue = new Comparator<SearchNode>() {
+        Comparator<SearchNode> highestGValue = new Comparator<SearchNode>() {
 
             @Override
             public int compare(SearchNode sn1, SearchNode sn2) {
@@ -28,7 +28,7 @@ public class DijkstraSearch extends BreadthFirstSearch{
             }
         };
 
-        Collections.sort(nodes, hightestGValue);
+        Collections.sort(nodes, highestGValue);
         return nodes.get(0);
     }
 }
