@@ -9,6 +9,12 @@ public class ResultFunction {
 
     }
 
+    /**
+     * Returns a new state based on given action, if that action is valid for a given state.
+     * @param action - Domain specific action
+     * @param gridMap - State to perform the action on
+     * @return new State based on the action
+     */
     public GridMap result(Action action, GridMap gridMap) {
         Position currentPosition = gridMap.getCurrentPosition();
         Position newPosition;

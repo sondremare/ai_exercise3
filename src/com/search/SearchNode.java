@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Sondre on 23.09.2014.
+ *
  */
 public class SearchNode {
     GridMap state;

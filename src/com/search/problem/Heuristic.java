@@ -11,6 +11,7 @@ public class Heuristic {
 
     }
 
+    /** Heuristic for 2d grids based on Manhattan distance */
     public float calculateHeuristic(State state) {
         if (state instanceof GridMap) {
             GridMap gridMap = (GridMap) state;

@@ -11,6 +11,7 @@ import java.util.*;
 
 public class Main {
 
+    /** Function for reading .txt files of 2d grid maps into the GridMap state class */
     public static GridMap readFromFileIntoMap(String filePath) throws Exception {
         BufferedReader bufferedReader = null;
         try {
@@ -38,6 +39,7 @@ public class Main {
         return null;
     }
 
+    /** Here one specifies the location of the 2d board, and which search function to use **/
     public static void main(String[] args) throws Exception {
         String filePath = "C:\\Users\\Sondre\\Downloads\\boards\\boards\\board-2-4.txt";
         GridMap map = readFromFileIntoMap(filePath);

@@ -31,6 +31,8 @@ public class GUI extends JPanel {
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        /** Paints a basic 2d grid with obstacles (if any) and
+         * certain background colors based on cell costs */
         for (int i = 0; i<state.size(); i++) {
             for (int j = 0; j<state.get(i).size(); j++) {
                 g.setColor(getColor(state.get(i).get(j)));
@@ -39,11 +41,14 @@ public class GUI extends JPanel {
                 g.drawRect(margin + j*cellWidth, margin + i*cellWidth, cellWidth, cellWidth);
             }
         }
+        /** Paints the solution chain into the grid */
         for (int k = 0; k< solutionChain.size(); k++) {
             Position pos = solutionChain.get(k);
             g.setColor(Color.BLACK);
             g.fillOval(20 + pos.getY()*cellWidth, 20 + (pos.getX())*cellWidth, 8, 8);
         }
+
+        /** Draws the position of the open and closed nodes if the option is enabled **/
         if (shouldDrawOpenAndClosedNodes) {
             for (int l = 0; l < open.size(); l++) {
                 Position pos = open.get(l).getState().getCurrentPosition();

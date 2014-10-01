@@ -16,6 +16,13 @@ public class AStarSearch extends BreadthFirstSearch{
         super(problem, shouldDrawOpenAndClosedNodes);
     }
 
+
+    /**
+     * Overrides the popNode method from BreadthFirstSearch and adds sorting of OPEN nodes
+     * based primarily on lowest F-value, and secondarily on lowest heuristical value.
+      * @param nodes - the list of currently open nodes.
+     * @return ascending sorted list.
+     */
     @Override
     public SearchNode popNode(ArrayList<SearchNode> nodes) {
         Comparator<SearchNode> lowestFAndHValues = new Comparator<SearchNode>() {

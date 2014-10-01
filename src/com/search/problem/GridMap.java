@@ -7,6 +7,8 @@ import java.util.ArrayList;
 /**
  * Created by Sondre on 27.09.2014.
  */
+
+/** Class representing the state of certain 2d grid problems */
 public class GridMap extends State {
 
     private ArrayList<ArrayList<Character>> state;

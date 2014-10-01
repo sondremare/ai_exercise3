@@ -15,7 +15,12 @@ public class DijkstraSearch extends BreadthFirstSearch{
     public DijkstraSearch(Problem problem, boolean shouldDrawOpenAndClosedNodes) {
         super(problem, shouldDrawOpenAndClosedNodes);
     }
-
+    /**
+     * Overrides the popNode method from BreadthFirstSearch and adds sorting of OPEN nodes
+     * based primarily on lowest G-value.
+     * @param nodes - the list of currently open nodes.
+     * @return ascending sorted list.
+     */
     @Override
     public SearchNode popNode(ArrayList<SearchNode> nodes) {
         Comparator<SearchNode> highestGValue = new Comparator<SearchNode>() {
