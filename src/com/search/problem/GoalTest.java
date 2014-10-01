@@ -10,6 +10,6 @@ public class GoalTest {
     }
 
     public boolean isGoalState(GridMap state) {
-        return state.getGoalPosition().getX() == state.getCurrentPosition().getX() && state.getGoalPosition().getY() == state.getCurrentPosition().getY();
+        return state.getGoalPosition().equals(state.getCurrentPosition());
     }
 }

@@ -15,9 +15,9 @@ public class GridMap extends State {
     private Position goal;
     private Position start;
     private Position current;
-    private char BLOCKED = '#';
-    private char GOAL = 'B';
-    private char START_NODE = 'A';
+    private static final char BLOCKED_NODE = '#';
+    private static final char GOAL_NODE = 'B';
+    private static final char START_NODE = 'A';
 
     public GridMap(ArrayList<ArrayList<Character>> state, int height, int width) {
         this.state = state;
@@ -37,12 +37,12 @@ public class GridMap extends State {
         this.current = current;
     }
 
-    public ArrayList<ArrayList<Character>> getState() {
-        return state;
-    }
-
     public GridMap(GridMap gridMap) {
         this(gridMap.getState(), gridMap.getHeight(), gridMap.getWidth(), gridMap.getCurrentPosition(), gridMap.getGoalPosition(), gridMap.getStart());
+    }
+
+    public ArrayList<ArrayList<Character>> getState() {
+        return state;
     }
 
     public Position getCurrentPosition() {
@@ -70,7 +70,7 @@ public class GridMap extends State {
     }
 
     public boolean isBlocked(Position position) {
-        return state.get(position.getX()).get(position.getY()) == BLOCKED;
+        return state.get(position.getX()).get(position.getY()) == BLOCKED_NODE;
     }
 
     public boolean isPositionWithinBounds(Position position) {
@@ -85,7 +85,7 @@ public class GridMap extends State {
     public Position findGoalPosition() {
         for (int i = 0; i<state.size(); i++) {
             for (int j = 0; j<state.get(i).size(); j++) {
-                if (state.get(i).get(j) == GOAL) return new Position(i,j);
+                if (state.get(i).get(j) == GOAL_NODE) return new Position(i,j);
             }
         }
         return null;

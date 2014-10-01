@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Created by Sondre on 23.09.2014.
  */
-public class SearchNode implements Comparable<SearchNode>{
+public class SearchNode {
     GridMap state;
     private float g;
     private float h;
@@ -19,17 +19,10 @@ public class SearchNode implements Comparable<SearchNode>{
     private SearchNode parent;
     private ArrayList<SearchNode> kids = new ArrayList<SearchNode>();
 
-    public SearchNode(GridMap state) {
-        this.state = state;
-        this.g = 0;
-        this.h = CalculateHeuristic();
-        this.f = this.g + this.h;
-    }
-
-    public SearchNode(GridMap state, float g) {
+    public SearchNode(GridMap state, float g, float h) {
         this.state = state;
         this.g = g;
-        this.h = CalculateHeuristic();
+        this.h = h;
         this.f = this.g + this.h;
     }
 
@@ -39,13 +32,6 @@ public class SearchNode implements Comparable<SearchNode>{
 
     public void setState(GridMap state) {
         this.state = state;
-    }
-
-    /** Calculates heuristic based on Manhattan distance */
-    public float CalculateHeuristic () {
-        Position current = state.getCurrentPosition();
-        Position goal = state.getGoalPosition();
-        return (Math.abs(current.getX() - goal.getX()) + Math.abs(current.getY() - goal.getY()));
     }
 
     public float getG() {
@@ -102,12 +88,5 @@ public class SearchNode implements Comparable<SearchNode>{
 
     public void setKids(ArrayList<SearchNode> kids) {
         this.kids = kids;
-    }
-
-    @Override
-    public int compareTo(SearchNode sn) {
-        if (this.getF() > sn.getF()) return 1;
-        else if (this.getF() < sn.getF()) return -1;
-        else return 0;
     }
 }
