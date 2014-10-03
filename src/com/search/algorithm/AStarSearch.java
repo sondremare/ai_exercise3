@@ -2,6 +2,7 @@ package com.search.algorithm;
 
 import com.search.SearchNode;
 import com.search.problem.Problem;
+import com.search.problem.RushHourProblem;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,7 +13,7 @@ import java.util.Comparator;
  */
 public class AStarSearch extends BreadthFirstSearch{
 
-    public AStarSearch(Problem problem, boolean shouldDrawOpenAndClosedNodes) {
+    public AStarSearch(RushHourProblem problem, boolean shouldDrawOpenAndClosedNodes) {
         super(problem, shouldDrawOpenAndClosedNodes);
     }
 

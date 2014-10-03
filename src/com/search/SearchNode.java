@@ -1,9 +1,6 @@
 package com.search;
 
-import com.search.problem.Action;
-import com.search.problem.GridMap;
-import com.search.problem.Position;
-import com.search.problem.Status;
+import com.search.problem.*;
 
 import java.util.ArrayList;
 
@@ -12,7 +9,7 @@ import java.util.ArrayList;
  *
  */
 public class SearchNode {
-    GridMap state;
+    RushHourGridMap state;
     private float g;
     private float h;
     private float f;
@@ -20,18 +17,18 @@ public class SearchNode {
     private SearchNode parent;
     private ArrayList<SearchNode> kids = new ArrayList<SearchNode>();
 
-    public SearchNode(GridMap state, float g, float h) {
+    public SearchNode(RushHourGridMap state, float g, float h) {
         this.state = state;
         this.g = g;
         this.h = h;
         this.f = this.g + this.h;
     }
 
-    public GridMap getState() {
+    public RushHourGridMap getState() {
         return state;
     }
 
-    public void setState(GridMap state) {
+    public void setState(RushHourGridMap state) {
         this.state = state;
     }
 

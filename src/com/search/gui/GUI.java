@@ -49,7 +49,7 @@ public class GUI extends JPanel {
         }
 
         /** Draws the position of the open and closed nodes if the option is enabled **/
-        if (shouldDrawOpenAndClosedNodes) {
+      /*  if (shouldDrawOpenAndClosedNodes) {
             for (int l = 0; l < open.size(); l++) {
                 Position pos = open.get(l).getState().getCurrentPosition();
                 g.setColor(Color.BLACK);
@@ -68,7 +68,7 @@ public class GUI extends JPanel {
                 }
 
             }
-        }
+        }*/
     }
 
     private Color getColor(char character) {
