@@ -14,7 +14,7 @@ public class RushHourGridMap extends State {
     private ArrayList<Car> cars;
     private int height = 6;
     private int width = 6;
-    private Position goal = new Position(5,2);
+    private Position goal = new Position(4,2);
 
     public RushHourGridMap(ArrayList<Car> cars) {
         this.cars = cars;
@@ -23,7 +23,8 @@ public class RushHourGridMap extends State {
     public RushHourGridMap(RushHourGridMap gridMap) {
         ArrayList<Car> carCopy = new ArrayList<Car>();
         for (Car car : gridMap.getCars()) {
-            Car newCar = new Car(car.getNumber(),car.getPosition(),car.getLength(),car.isHorizontal);
+            Position newPosition = new Position(car.getPosition().getX(), car.getPosition().getY());
+            Car newCar = new Car(car.getNumber(),newPosition,car.getLength(),car.isHorizontal);
             carCopy.add(newCar);
         }
         this.cars = carCopy;
@@ -86,25 +87,48 @@ public class RushHourGridMap extends State {
         return (blocked[position.getX()][position.getY()]);
     }
 
-    public boolean isPositionWithinBounds(Position position) {
+    public boolean isPositionWithinBounds(Car car, Position position) {
         return (position.getX() >= 0 && position.getX() < this.height
                 && position.getY() >= 0 && position.getY() < this.width);
     }
 
     public boolean isValidPosition(Car car, Position position) {
-        return isPositionWithinBounds(position) && !isBlocked(position, car);
+        return isPositionWithinBounds(car, position) && !isBlocked(position, car);
     }
 
     public void move(Car currentCar, Position position) {
         for (Car car : cars) {
             if (currentCar.equals(car)){
                 car.setPosition(position);
-                //System.out.println("MOVING CAR "+car.getNumber()+" TO: "+position);
             }
         }
     }
 
     public float getGCost() {
         return 1;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof RushHourGridMap)) return false;
+
+        RushHourGridMap that = (RushHourGridMap) o;
+
+        if (height != that.height) return false;
+        if (width != that.width) return false;
+        if (!cars.equals(that.cars)) return false;
+        if (!goal.equals(that.goal)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = cars.hashCode();
+        result = 31 * result + height;
+        result = 31 * result + width;
+        result = 31 * result + goal.hashCode();
+        return result;
     }
 }

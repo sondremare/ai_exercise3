@@ -61,6 +61,7 @@ public class BreadthFirstSearch {
                 RushHourResultFunction resultFunction = problem.getResultFunction();
                 RushHourGridMap state = resultFunction.result(action, car, currentSearchNode.getState());
                 if (state != null) {
+                    //System.out.println("moving car: "+car+", to the: "+action);
                     SearchNode childSearchNode = new SearchNode(state, currentSearchNode.getG(), problem.getHeuristic().calculateHeuristic(state));
                     children.add(childSearchNode);
                 }
@@ -75,7 +76,7 @@ public class BreadthFirstSearch {
     }
 
     /** This function tries to find a solution to a given problem using search */
-    public void search() throws Exception {
+    public ArrayList<RushHourGridMap> search() throws Exception {
 
         /** Initialization of the state, lists, and search node */
         RushHourProblem problem = getProblem();
@@ -87,40 +88,42 @@ public class BreadthFirstSearch {
         initialSearchNode.open();
         open.add(initialSearchNode);
         uniqueStates.put(gridMap.hashCode(), gridMap);
-        //JFrame frame = RushHourGui.createAndShowGUI(gridMap);
         int counter = 0;
+        JFrame frame = null;
         while (!open.isEmpty()) {
-            System.out.println("Counter: "+counter);
+            //System.out.println("Counter: "+counter);
             SearchNode currentSearchNode = popNode(open);
             open.remove(currentSearchNode);
             currentSearchNode.close();
             closed.add(currentSearchNode);
 
-            for (Car car : currentSearchNode.getState().getCars()) {
-                //System.out.println(car);
-            }
-
-            /** only for painting **/
-            gridMap = currentSearchNode.getState();
-           //frame.validate();
-           //frame.repaint();
-            //frame.invalidate();
+            /*for (Car car : currentSearchNode.getState().getCars()) {
+                System.out.println(car);
+            }*/
+            ArrayList<Car> carz = currentSearchNode.getState().getCars();
+            Position car0pos = carz.get(0).getPosition();
+            Position car1pos = carz.get(1).getPosition();
+            Position car2pos = carz.get(2).getPosition();
+            Position car3pos = carz.get(3).getPosition();
+            Position car4pos = carz.get(4).getPosition();
+            Position car5pos = carz.get(5).getPosition();
 
             /** We check if the current search node is in the desired goal state */
             if (problem.getGoalTest().isGoalState(currentSearchNode.getState())) {
+                System.out.println("WINNING");
+                System.out.println("CLOSED: "+closed.size());
+                System.out.println("OPEN: "+open.size());
                 SearchNode parent = currentSearchNode;
-                ArrayList<Position> solutionChain = new ArrayList<Position>();
+                ArrayList<RushHourGridMap> solutionChain = new ArrayList<RushHourGridMap>();
                 /** We iterate backwards from the goal state via the nodes' parents to find a chain of nodes
                  * which is the solution to the problem
                  */
                 while (parent != null) {
-                   // solutionChain.add(solutionChain.size(), parent.getState().getCurrentPosition());
+                    solutionChain.add(parent.getState());
                     parent = parent.getParent();
                 }
 
-                /** After the solution is found, we draw it visually */
-               // GUI.createAndShowGUI(currentSearchNode.getState().getState(), solutionChain, open, closed, isShouldDrawOpenAndClosedNodes());
-                break;
+                return solutionChain;
             }
 
             /** We generate all neighbouring/successor nodes of the current node */
@@ -162,5 +165,6 @@ public class BreadthFirstSearch {
             }
             counter++;
         }
+        return null;
     }
 }

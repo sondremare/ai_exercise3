@@ -26,7 +26,7 @@ public class RushHourHeuristic {
                 if (occupied[i][primaryCar.getPosition().getY()]) numberOfObstacles++;
                 numberOfGridsToGoal++;
             }
-            return numberOfObstacles + numberOfGridsToGoal;
+            return numberOfObstacles + 1;
         } else return 0;
 
     }

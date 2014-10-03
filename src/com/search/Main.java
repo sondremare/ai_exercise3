@@ -6,6 +6,7 @@ import com.search.algorithm.DijkstraSearch;
 import com.search.gui.RushHourGui;
 import com.search.problem.*;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.*;
 
@@ -75,18 +76,19 @@ public class Main {
 
     /** Here one specifies the location of the 2d board, and which search function to use **/
     public static void main(String[] args) throws Exception {
-        String filePath = "D:\\Prosjekt\\School\\AI\\exercise3\\resources\\rushhourpuzzles\\easy-3.txt";
+        //String filePath = "D:\\Prosjekt\\School\\AI\\exercise3\\resources\\rushhourpuzzles\\easy-3.txt";
         //String filePath = "D:\\Prosjekt\\School\\AI\\exercise3\\resources\\rushhourpuzzles\\medium-1.txt";
         //String filePath = "D:\\Prosjekt\\School\\AI\\exercise3\\resources\\rushhourpuzzles\\hard-3.txt";
-        //String filePath = "D:\\Prosjekt\\School\\AI\\exercise3\\resources\\rushhourpuzzles\\expert-2.txt";
+        String filePath = "D:\\Prosjekt\\School\\AI\\exercise3\\resources\\rushhourpuzzles\\expert-2.txt";
         RushHourGridMap gridMap = readFromFileIntoRushHourPuzzle(filePath);
         //RushHourGui.createAndShowGUI(gridMap);
         RushHourProblem problem = new RushHourProblem(gridMap);
         boolean shouldDrawOpenAndClosedNodes = true;
-        AStarSearch search = new AStarSearch(problem, shouldDrawOpenAndClosedNodes);
+        //AStarSearch search = new AStarSearch(problem, shouldDrawOpenAndClosedNodes);
         //BreadthFirstSearch search = new BreadthFirstSearch(problem, shouldDrawOpenAndClosedNodes);
-        //DijkstraSearch search = new DijkstraSearch(problem, shouldDrawOpenAndClosedNodes);
-        search.search();
-
+        DijkstraSearch search = new DijkstraSearch(problem, shouldDrawOpenAndClosedNodes);
+        ArrayList<RushHourGridMap> solution = search.search();
+        System.out.println(solution.size());
+        JFrame frame = RushHourGui.createAndShowGUI(solution);
     }
 }

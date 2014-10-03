@@ -27,15 +27,9 @@ public class RushHourResultFunction {
             }
         } else if (action == Action.SOUTH) {
             newPosition = new Position(currentPosition.getX(), currentPosition.getY()+1);
-            if (!car.isHorizontal()) {
-                boolean valid = true;
-                for (int i = 0; i<car.getLength(); i++) {
-                    Position carPosition = new Position(currentPosition.getX(), currentPosition.getY()+1+i);
-                    if (!gridMap.isValidPosition(car, carPosition)) {
-                        valid = false;
-                    }
-                }
-                if (valid) {
+            if (!car.isHorizontal()){
+                Position checkingPosition = new Position(currentPosition.getX(), currentPosition.getY()+car.getLength());
+                if (gridMap.isValidPosition(car,checkingPosition)) {
                     RushHourGridMap newGridMap = new RushHourGridMap(gridMap);
                     newGridMap.move(car, newPosition);
                     return newGridMap;
@@ -50,15 +44,9 @@ public class RushHourResultFunction {
             }
         } else if (action == Action.EAST) {
             newPosition = new Position(currentPosition.getX()+1, currentPosition.getY());
-            if (car.isHorizontal()) {
-                boolean valid = true;
-                for (int i = 0; i<car.getLength(); i++) {
-                    Position carPosition = new Position(currentPosition.getX()+car.getLength()+i, currentPosition.getY());
-                    if (!gridMap.isValidPosition(car, carPosition)) {
-                        valid = false;
-                    }
-                }
-                if (valid) {
+            if (car.isHorizontal()){
+                Position checkingPosition = new Position(currentPosition.getX()+car.getLength(), currentPosition.getY());
+                if (gridMap.isValidPosition(car, checkingPosition)) {
                     RushHourGridMap newGridMap = new RushHourGridMap(gridMap);
                     newGridMap.move(car, newPosition);
                     return newGridMap;
