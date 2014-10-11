@@ -22,11 +22,39 @@ public class RushHourHeuristic {
             int xStartPosition = primaryCar.getPosition().getX();
             int xGoalPosition = gridMap.getGoal().getX();
             int carLength = primaryCar.getLength();
+            int movesToMoveObstacle = 0;
             for (int i = xStartPosition+carLength; i<=xGoalPosition; ++i) {
-                if (occupied[i][primaryCar.getPosition().getY()]) numberOfObstacles++;
+                if (occupied[i][primaryCar.getPosition().getY()]) {
+                    /** we found part of a car, now we search vertically for the nose of the car **/
+                    for (int j = primaryCar.getPosition().getY(); j>=0; j--) {
+                        for (Car car : gridMap.getCars()) {
+                            if (car.getPosition().equals(new Position(i,j))) {
+                                int yDistance = primaryCar.getPosition().getY() - car.getPosition().getY();
+                                int yMovesUp = car.getLength() - yDistance;
+                                int yMovesDown = yDistance + 1;
+                                if (yMovesDown < yMovesDown) {
+                                    Position movingPosition = new Position(car.getPosition().getX(), car.getPosition().getY() + yMovesDown);
+                                    if (gridMap.isPositionWithinBounds(car, movingPosition)) {
+                                        movesToMoveObstacle += yMovesDown;
+                                    } else {
+                                        movesToMoveObstacle += yMovesUp;
+                                    }
+                                } else {
+                                    Position movingPosition = new Position(car.getPosition().getX(), car.getPosition().getY() + yMovesUp);
+                                    if (gridMap.isPositionWithinBounds(car, movingPosition)) {
+                                        movesToMoveObstacle += yMovesUp;
+                                    } else {
+                                        movesToMoveObstacle += yMovesDown;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    numberOfObstacles++;
+                }
                 numberOfGridsToGoal++;
             }
-            return numberOfObstacles + 1;
+            return numberOfObstacles + ((numberOfGridsToGoal > 0) ? 1 : 0) + movesToMoveObstacle;
         } else return 0;
 
     }
